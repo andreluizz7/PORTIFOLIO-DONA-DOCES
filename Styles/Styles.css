@@ -17,10 +17,16 @@ body {
 
 .header {
     position: relative;
-    height: 8rem;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 1rem;
     background-color: var(--color-secondary);
-    
 }
 
 .header__nav {
@@ -48,19 +54,18 @@ body {
 
 .header__nav__carrinho {
     position: absolute;
-    max-width: 4rem;
-    top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
     right: 2rem;
     height: auto;
     border: 0;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .header__nav__carrinho__img {
-    width: 100%;
+    width: 4rem;
     height: auto;
     object-fit: cover;
 }
