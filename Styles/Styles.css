@@ -3,11 +3,14 @@
     --color-secondary: #f3c2c9;
     --color-border: #f3c2c9;
     --color-text: #000000;
+    --color-title: #000000;
+    --title-hover: #de1364;
 }
 
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -44,6 +47,11 @@ body {
     align-items: center;
     justify-content: center;
     top: 2rem;
+    transition: transform 0.5s ease;
+}
+
+.header__nav__logo:hover {
+    transform: scale(1.1);
 }
 
 .header__nav__logo__img {
@@ -63,6 +71,11 @@ body {
     border: 0;
     background-color: transparent;
     cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.header__nav__carrinho:hover {
+    transform: scale(1.1);
 }
 
 .header__nav__carrinho__img {
@@ -89,6 +102,12 @@ body {
 .main__introducao__titulo {
     font-size: 3rem;
     font-weight: bold;
+    color: var(--color-title);
+    transition: color 0.5s ease;
+}
+
+.main__introducao__titulo:hover {
+    color: var(--title-hover);
 }
 
 .main__introducao__descricao {
@@ -206,6 +225,17 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header__nav__logo__img {
+        width: 13rem;
+    }
+
     .main__produtos {
         flex-direction: column;
         gap: 2rem;
