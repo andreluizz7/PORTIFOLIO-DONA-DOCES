@@ -17,7 +17,7 @@
                     <li class="header__nav__links__item"><a href="#sobre">Sobre Nós</a></li>
                     <li class="header__nav__links__item"><a href="#contato">Contato</a></li> -->
                 </ul>
-                <button class="header__nav__carrinho" aria-label="Ver carrinho de compras">
+                <button class="header__nav__carrinho" id="abrir-carrinho-btn" aria-label="Ver carrinho de compras">
                     <img class="header__nav__carrinho__img" src="Assets/carrinho.png" alt="Ícone do carrinho de compras">
                 </button>
             </nav>
@@ -61,5 +61,19 @@
             <p class="footer__texto">© 2024 Dona Doces. Todos os direitos reservados.</p>
             <p class="footer__autor">Feito com ☕ e ❤️ por André L Blazius</p>
         </footer>
+        <div class="carrinho-modal hidden" aria-hidden="true">
+            <div class="carrinho-modal__conteudo">
+                <button class="carrinho-modal__fechar" id="fechar-carrinho-btn" aria-label="Fechar carrinho de compras">&times;</button>
+                <h2 class="carrinho-modal__titulo">Seu Carrinho</h2>
+                <div class="carrinho-modal__itens">
+                    <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+                </div>
+                <div class="carrinho-modal__total">
+                    <span>Total:</span>
+                    <span class="carrinho-modal__total-valor">R$ 0,00</span>
+                </div>
+                <button class="carrinho-modal__finalizar" aria-label="Finalizar compra">Finalizar Compra</button>
+            </div>
+        <script src="Scripts/main.js"></script>
     </body>
 </html>

@@ -1,10 +1,13 @@
 :root {
-    --color-background: #f6d9f1;
+    --color-background: #f3c8ec;
     --color-secondary: #f3c2c9;
     --color-border: #f3c2c9;
     --color-text: #000000;
     --color-title: #000000;
     --title-hover: #de1364;
+    --color-carrinho: #fcbcd9;
+    --color-button: #f599c7;
+    --button-hover: #e673a3;
 }
 
 * {
@@ -191,14 +194,14 @@ body {
     font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
-    background-color: #f599c7;
+    background-color: var(--color-button);
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
 }
 
 .main__produtos__item button:hover {
-    background-color: #e673a3;
+    background-color: var(--button-hover);
 }
 
 .footer {
@@ -222,6 +225,98 @@ body {
 .footer__autor {
     font-size: 1rem;
     color: var(--color-text);
+}
+
+.carrinho-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 50rem;
+    height: 100%;
+    background-color: var(--color-carrinho);
+    z-index: 1000;
+    
+    /* começa escondido */
+    transform: translateX(100%); /* fora da tela à direita */
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.carrinho-modal.aberto {
+  transform: translateX(0); /* volta pro lugar */
+  opacity: 1;
+}
+
+
+.carrinho-modal__conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.carrinho-modal__fechar {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    top: 1rem;
+    right: 1rem;
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.carrinho-modal__fechar:hover {
+    background-color: #ec547780;
+    border-radius: 1rem;
+}
+
+.carrinho-modal__titulo {
+    font-size: 2rem;
+    color: var(--color-title);
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.carrinho-modal__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 1rem;
+}
+
+.carrinho-modal__total {
+    margin-top: auto;
+    align-self: flex-end;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.carrinho-modal__finalizar {
+    margin-top: auto;
+    align-self: flex-end;
+    padding: 1rem;
+    height: auto;
+    width: 100%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: var(--color-button);
+    border: 2px solid #000000;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.carrinho-modal__finalizar:hover {
+    background-color: var(--button-hover);
 }
 
 @media (max-width: 768px) {
@@ -249,6 +344,29 @@ body {
     .main__produtos__item button {
         padding: 1rem 1.6rem;
     }
+
+    .carrinho-modal {
+    border-radius: 0; 
+    padding: 1rem;
+  }
+
+  .carrinho-modal__conteudo {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .carrinho-modal__titulo {
+    font-size: 2rem;
+  }
+
+  .carrinho-modal__total {
+    font-size: 1.7rem;
+  }
+
+  .carrinho-modal__finalizar {
+    font-size: 1.4rem;
+    padding: 0.8rem;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1250px) {
@@ -282,5 +400,18 @@ body {
     .main__produtos__item button {
         padding: 1.2rem 2rem;
         font-size: 1.2rem;
+    }
+
+    .carrinho-modal__titulo {
+        font-size: 2.5rem;
+    }
+
+    .carrinho-modal__total {
+        font-size: 2rem;
+    }
+
+    .carrinho-modal__finalizar {
+        font-size: 1.7rem;
+        padding: 1rem;
     }
 }
