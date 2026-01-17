@@ -28,8 +28,8 @@ A ideia é transformar o processo em algo mais organizado e acessível, criando 
 
 ## 📁 Estrutura do Projeto
 
-PORTIFOLIO-DONA-DOCES/
 ```
+PORTIFOLIO-DONA-DOCES/
 ├── index.html .............# Página principal
 ├── Styles/ ................# Arquivos de estilo (CSS)
 │   └── style.css ..........# Estilos e responsividade
