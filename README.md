@@ -29,6 +29,7 @@ A ideia é transformar o processo em algo mais organizado e acessível, criando 
 ## 📁 Estrutura do Projeto
 
 PORTIFOLIO-DONA-DOCES/
+```
 ├── index.html .............# Página principal
 ├── Styles/ ................# Arquivos de estilo (CSS)
 │   └── style.css ..........# Estilos e responsividade
@@ -38,7 +39,7 @@ PORTIFOLIO-DONA-DOCES/
 │   ├── imagens/ ...........# Imagens dos produtos e ícones
 │   └── logo.png ...........# Logo do site
 └── README.md ..............# Documentação do projeto
-
+```
 ---
 
 ## ▶️ Como executar
