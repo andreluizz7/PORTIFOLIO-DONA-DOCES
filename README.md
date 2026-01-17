@@ -5,6 +5,13 @@ A ideia é transformar o processo em algo mais organizado e acessível, criando 
 
 ---
 
+## ▶️ Como executar
+
+Você pode acessar o projeto diretamente pelo link:  
+👉 [Dona Doces no Vercel](https://dona-doces.vercel.app)
+
+---
+
 ## 🚀 Funcionalidades
 
 - Página inicial com apresentação dos produtos
@@ -14,7 +21,7 @@ A ideia é transformar o processo em algo mais organizado e acessível, criando 
   - Abre e fecha com clique
   - Exibe itens adicionados (em desenvolvimento)
   - Calcula total da compra (em desenvolvimento)
-    
+ 
 ---
 
 ## 🛠️ Tecnologias utilizadas
@@ -40,12 +47,6 @@ PORTIFOLIO-DONA-DOCES/
 │   └── logo.png ...........# Logo do site
 └── README.md ..............# Documentação do projeto
 ```
----
-
-## ▶️ Como executar
-
-Você pode acessar o projeto diretamente pelo link:  
-👉 [Dona Doces no Vercel](https://dona-doces.vercel.app)
 
 ---
 
