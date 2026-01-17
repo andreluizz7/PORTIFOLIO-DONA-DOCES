@@ -52,6 +52,6 @@ PORTIFOLIO-DONA-DOCES/
 
 ## 🙋‍♂️ Autor
 
-**André Luiz Blazius** 
+**André Luiz Blazius** \n
 📧 al2981085@gmail.com  
 📍 Ibirama, SC – Brasil
