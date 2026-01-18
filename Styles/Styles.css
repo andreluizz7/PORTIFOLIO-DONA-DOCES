@@ -236,15 +236,13 @@ body {
     height: 100%;
     background-color: var(--color-carrinho);
     z-index: 1000;
-    
-    /* começa escondido */
-    transform: translateX(100%); /* fora da tela à direita */
+    transform: translateX(100%); 
     opacity: 0;
     transition: transform 0.6s ease, opacity 0.4s ease;
 }
 
 .carrinho-modal.aberto {
-  transform: translateX(0); /* volta pro lugar */
+  transform: translateX(0); 
   opacity: 1;
 }
 
@@ -334,6 +332,7 @@ body {
     .main__produtos {
         flex-direction: column;
         gap: 2rem;
+        padding: 2rem;
     }
 
     .main__produtos__item {
