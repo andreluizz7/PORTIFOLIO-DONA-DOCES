@@ -8,6 +8,7 @@
     --color-carrinho: #fcbcd9;
     --color-button: #f599c7;
     --button-hover: #e673a3;
+    --font-style: 'Open Sans', sans-serif;
 }
 
 * {
@@ -19,6 +20,7 @@
 body {
     box-sizing: border-box;
     background-color: var(--color-background);
+    font-family: var(--font-style);
 }
 
 .header {
@@ -198,6 +200,7 @@ body {
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+    font-family: var(--font-style);
 }
 
 .main__produtos__item button:hover {
@@ -239,6 +242,8 @@ body {
     transform: translateX(100%); 
     opacity: 0;
     transition: transform 0.6s ease, opacity 0.4s ease;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem 0 0 1rem;
 }
 
 .carrinho-modal.aberto {
@@ -305,6 +310,7 @@ body {
     height: auto;
     width: 100%;
     font-size: 1.4rem;
+    font-family: var(--font-style);
     font-weight: bold;
     color: #ffffff;
     background-color: var(--color-button);
