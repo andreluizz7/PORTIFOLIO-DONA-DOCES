@@ -10,6 +10,7 @@
         </style>
     </head>
     <body>
+
         <header class="header">
             <nav class="header__nav">
                 <a class="header__nav__logo" href="index.html">
@@ -25,11 +26,13 @@
                 </button>
             </nav>
         </header>
+
         <main class="main">
             <section class="main__introducao">
                 <h1 class="main__introducao__titulo">Docinhos Artesanais</h1>
                 <p class="main__introducao__descricao">Deliciosos doces caseiros feitos com muito carinho e ingredientes selecionados. Perfeitos para festas, presentes ou para adoçar seu dia!</p>
             </section>
+
             <section class="main__produtos">
                 <article class="main__produtos__item">
                     <img class="main__produtos__item__img" src="Assets/produto1.jpeg" alt="produto 1">
@@ -40,6 +43,7 @@
                         </div>
                     <button type="button" class="main__produtos__item__botao" aria-label="Adicionar produto 1 no carinho">Adicionar ao Carrinho</button>
                 </article>
+
                 <article class="main__produtos__item">
                     <img class="main__produtos__item__img" src="Assets/produto2.jpeg" alt="produto 2">
                         <div class="main__produtos__item__info">
@@ -49,6 +53,7 @@
                         </div>
                     <button type="button" class="main__produtos__item__botao" aria-label="Adicionar produto 2 no carinho">Adicionar ao Carrinho</button>
                 </article>
+
                 <article class="main__produtos__item">
                     <img class="main__produtos__item__img" src="Assets/produto3.jpeg" alt="produto 3">
                         <div class="main__produtos__item__info">
@@ -60,10 +65,12 @@
                 </article>
             </section>
         </main>
+
         <footer class="footer">
             <p class="footer__texto">© 2024 Dona Doces. Todos os direitos reservados.</p>
             <p class="footer__autor">Feito com ☕ e ❤️ por André L Blazius</p>
         </footer>
+
         <div class="carrinho-modal hidden" aria-hidden="true">
             <div class="carrinho-modal__conteudo">
                 <button class="carrinho-modal__fechar" id="fechar-carrinho-btn" aria-label="Fechar carrinho de compras">&times;</button>
@@ -75,9 +82,37 @@
                     <span>Total:</span>
                     <span class="carrinho-modal__total-valor">R$ 0,00</span>
                 </div>
-                <button class="carrinho-modal__finalizar" aria-label="Finalizar compra">Finalizar Compra</button>
+                <button class="carrinho-modal__finalizar" id="finalizar-compra-btn" aria-label="Finalizar compra">Finalizar Compra</button>
             </div>
         </div>
+
+        <div>
+                        <!-- Modal de login -->
+            <div class="login-modal hidden" aria-hidden="true">
+                <div class="login-modal__conteudo">
+                    <button class="login-modal__fechar" id="fechar-login-btn" aria-label="Fechar login">&times;</button>
+                    <h2 class="login-modal__titulo">Login</h2>
+                    <form class="login-modal__formulario">
+
+                        <label for="username">Usuário:</label>
+                        <input type="text" id="username" name="username" required>
+                        
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required>
+                            <!-- tipo de pagamento -->
+                        <label for="tipo-pagamento">Tipo de Pagamento:</label>
+                        <select id="tipo-pagamento" name="tipo-pagamento" required>
+                            <option value="">Selecione</option>
+                            <option value="avista">À Vista</option>
+                            <option value="pix">PIX</option>
+                        </select>
+
+                        <button type="submit" class="login-modal__botao" aria-label="finalizar compra">Finalizar Compra</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div id="toast-container"></div>
         <script src="Scripts/main.js"></script>
     </body>
