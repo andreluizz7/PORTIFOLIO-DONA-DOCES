@@ -236,11 +236,14 @@ body {
 
 .footer__texto {
     font-size: 1.1rem;
+    font-family: var(--font-style);
     color: var(--color-text);
 }
 
 .footer__autor {
     font-size: 1rem;
+    font-family: var(--font-style);
+    font-weight: 600;
     color: var(--color-text);
 }
 
