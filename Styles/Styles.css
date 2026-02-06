@@ -624,11 +624,11 @@ body {
     }
 
     .main__introducao__titulo {
-        font-size: 1.2;
+        font-size: 1.2rem;
     }
 
     .main__introducao__descricao {
-        font-size: 1.2;
+        font-size: 1.2rem;
     }
 
     .main__produtos {
@@ -637,8 +637,8 @@ body {
     }
 
     .main__produtos__item {
-        padding: 4rem 10rem;
-        gap: 1.5rem;
+        width: 100%;
+        padding: 2rem 6rem;
     }
 
     .main__produtos__item__img {
