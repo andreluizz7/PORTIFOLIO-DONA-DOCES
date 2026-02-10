@@ -78,10 +78,10 @@
             <p class="footer__autor">Feito com ☕ e ❤️ por André L Blazius</p>
         </footer>
 
-        <div class="carrinho-modal hidden" aria-hidden="true">
+        <div class="carrinho-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="carrinho-titulo">
             <div class="carrinho-modal__conteudo">
                 <button class="carrinho-modal__fechar" id="fechar-carrinho-btn" aria-label="Fechar carrinho de compras">&times;</button>
-                <h2 class="carrinho-modal__titulo">Seu Carrinho</h2>
+            <h2 class="carrinho-modal__titulo" id="carrinho-titulo">Seu Carrinho</h2>
                 <div class="carrinho-modal__itens">
                     <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
                 </div>
@@ -90,33 +90,6 @@
                     <span class="carrinho-modal__total-valor">R$ 0,00</span>
                 </div>
                 <button class="carrinho-modal__finalizar" id="finalizar-compra-btn" aria-label="Finalizar compra">Finalizar Compra</button>
-            </div>
-        </div>
-
-        <div>
-                        <!-- Modal de login -->
-            <div class="login-modal hidden" aria-hidden="true">
-                <div class="login-modal__conteudo">
-                    <button class="login-modal__fechar" id="fechar-login-btn" aria-label="Fechar login">&times;</button>
-                    <h2 class="login-modal__titulo">Login</h2>
-                    <form class="login-modal__formulario">
-
-                        <label for="username">Usuário:</label>
-                        <input type="text" id="username" name="username" required>
-                        
-                        <label for="password">Senha:</label>
-                        <input type="password" id="password" name="password" required>
-                            <!-- tipo de pagamento -->
-                        <label for="tipo-pagamento">Tipo de Pagamento:</label>
-                        <select id="tipo-pagamento" name="tipo-pagamento" required>
-                            <option value="">Selecione</option>
-                            <option value="avista">À Vista</option>
-                            <option value="pix">PIX</option>
-                        </select>
-
-                        <button type="submit" class="login-modal__botao" aria-label="finalizar compra">Finalizar Compra</button>
-                    </form>
-                </div>
             </div>
         </div>
 

@@ -4,8 +4,6 @@ const dom = {
   fecharCarrinhoBtn: document.querySelector('#fechar-carrinho-btn'),
   adicionarAoCarrinhoBtns: document.querySelectorAll('.main__produtos__item__botao'),
   finalizarCompraBtn: document.querySelector('#finalizar-compra-btn'),
-  loginModal: document.querySelector('.login-modal'),
-  fecharLoginBtn: document.querySelector('#fechar-login-btn'),
   carrinhoItensContainer: document.querySelector('.carrinho-modal__itens'),
   totalValor: document.querySelector('.carrinho-modal__total-valor'),
   toastContainer: document.getElementById('toast-container'),
@@ -19,34 +17,39 @@ const PRICE_LABEL = 'R$';
 const TOAST_SHOW_DELAY_MS = 100;
 const TOAST_HIDE_DELAY_MS = 3000;
 const TOAST_REMOVE_DELAY_MS = 300;
+const CART_STORAGE_KEY = 'carrinho';
+const MESSAGES = {
+  carrinhoVazio: 'Seu carrinho esta vazio.',
+  itemAdicionado: (titulo) => `${titulo} foi adicionado ao carrinho!`,
+};
+
+let lastFocusedElement = null;
 
 const openModal = (modal) => {
   modal.classList.add('aberto');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-aberto');
 };
 
 const closeModal = (modal) => {
   modal.classList.remove('aberto');
-};
-
-const showLoginModal = () => {
-  dom.loginModal.classList.remove('hidden');
-  openModal(dom.loginModal);
-};
-
-const hideLoginModal = () => {
-  closeModal(dom.loginModal);
-  dom.loginModal.classList.add('hidden');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-aberto');
 };
 
 const parsePreco = (preco) => {
-  const normalized = preco.replace(PRICE_LABEL, '').replace(',', '.');
+  const normalized = preco.replace(PRICE_LABEL, '').replace(/\s/g, '').replace(',', '.');
   const value = Number.parseFloat(normalized);
   return Number.isNaN(value) ? 0 : value;
 };
 
+const formatPreco = (valor) => {
+  return `${PRICE_LABEL} ${valor.toFixed(2).replace('.', ',')}`;
+};
+
 const atualizarTotal = (valor) => {
   state.total += valor;
-  dom.totalValor.textContent = `${PRICE_LABEL} ${state.total.toFixed(2)}`;
+  dom.totalValor.textContent = formatPreco(state.total);
 };
 
 const criarItemHTML = (imgSrc, titulo, preco) => `
@@ -117,21 +120,57 @@ const mostrarAviso = (mensagem) => {
   }, TOAST_HIDE_DELAY_MS);
 };
 
+const obterCarrinho = () => {
+  const itens = [...dom.carrinhoItensContainer.querySelectorAll('.carrinho-modal__item')].map(
+    (item) => {
+      const img = item.querySelector('.carrinho-modal__item__img');
+      const titulo = item.querySelector('.carrinho-modal__item__titulo');
+      const precoTexto = item.querySelector('.carrinho-modal__item__preco');
+      const quantidadeSpan = item.querySelector('.carrinho-modal__item__quantidade-valor');
+
+      const precoUnitario = parsePreco(precoTexto.textContent);
+      const quantidade = Number.parseInt(quantidadeSpan.textContent, 10);
+
+      return {
+        imgSrc: img.src,
+        titulo: titulo.textContent,
+        precoUnitario,
+        quantidade,
+      };
+    },
+  );
+
+  return {
+    itens,
+    total: state.total,
+  };
+};
+
 dom.abrirCarrinhoBtn.addEventListener('click', () => {
+  lastFocusedElement = document.activeElement;
   openModal(dom.carrinhoModal);
+  setTimeout(() => {
+    dom.fecharCarrinhoBtn.focus();
+  }, 0);
 });
 
 dom.fecharCarrinhoBtn.addEventListener('click', () => {
   closeModal(dom.carrinhoModal);
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
 });
 
 dom.finalizarCompraBtn.addEventListener('click', () => {
-  closeModal(dom.carrinhoModal);
-  showLoginModal();
-});
+  const carrinho = obterCarrinho();
 
-dom.fecharLoginBtn.addEventListener('click', () => {
-  hideLoginModal();
+  if (carrinho.itens.length === 0) {
+    mostrarAviso(MESSAGES.carrinhoVazio);
+    return;
+  }
+
+  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(carrinho));
+  window.location.href = 'pedidos.html';
 });
 
 dom.adicionarAoCarrinhoBtns.forEach((btn) => {
@@ -142,8 +181,21 @@ dom.adicionarAoCarrinhoBtns.forEach((btn) => {
     const preco = item.querySelector('.main__produtos__item__preco');
 
     adicionarItemAoCarrinho(img.src, titulo.textContent, preco.textContent);
-    mostrarAviso(`${titulo.textContent} foi adicionado ao carrinho!`);
+    mostrarAviso(MESSAGES.itemAdicionado(titulo.textContent));
   });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') {
+    return;
+  }
+
+  if (dom.carrinhoModal.classList.contains('aberto')) {
+    closeModal(dom.carrinhoModal);
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+    }
+  }
 });
 
 dom.carrinhoItensContainer.addEventListener('click', (event) => {
