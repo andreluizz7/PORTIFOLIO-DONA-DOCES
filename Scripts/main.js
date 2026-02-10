@@ -1,127 +1,173 @@
-const carrinhoModal = document.querySelector('.carrinho-modal');
-const abrirCarrinhoBtn = document.querySelector('#abrir-carrinho-btn');
-const fecharCarrinhoBtn = document.querySelector('#fechar-carrinho-btn');
-const adicionarAoCarrinhoBtns = document.querySelectorAll('.main__produtos__item__botao');
-const finalizarCompraBtn = document.querySelector('#finalizar-compra-btn');
-const loginModal = document.querySelector('.login-modal');
-const fecharLoginBtn = document.querySelector('#fechar-login-btn');
+const dom = {
+  carrinhoModal: document.querySelector('.carrinho-modal'),
+  abrirCarrinhoBtn: document.querySelector('#abrir-carrinho-btn'),
+  fecharCarrinhoBtn: document.querySelector('#fechar-carrinho-btn'),
+  adicionarAoCarrinhoBtns: document.querySelectorAll('.main__produtos__item__botao'),
+  finalizarCompraBtn: document.querySelector('#finalizar-compra-btn'),
+  loginModal: document.querySelector('.login-modal'),
+  fecharLoginBtn: document.querySelector('#fechar-login-btn'),
+  carrinhoItensContainer: document.querySelector('.carrinho-modal__itens'),
+  totalValor: document.querySelector('.carrinho-modal__total-valor'),
+  toastContainer: document.getElementById('toast-container'),
+};
 
+const state = {
+  total: 0,
+};
 
-abrirCarrinhoBtn.addEventListener('click', () => {
-  carrinhoModal.classList.add('aberto');
-});
+const PRICE_LABEL = 'R$';
+const TOAST_SHOW_DELAY_MS = 100;
+const TOAST_HIDE_DELAY_MS = 3000;
+const TOAST_REMOVE_DELAY_MS = 300;
 
-fecharCarrinhoBtn.addEventListener('click', () => {
-  carrinhoModal.classList.remove('aberto');
-});
+const openModal = (modal) => {
+  modal.classList.add('aberto');
+};
 
-finalizarCompraBtn.addEventListener('click', () => {
-  carrinhoModal.classList.remove('aberto');
-  loginModal.classList.remove('hidden');
-  loginModal.classList.add('aberto');
-});
+const closeModal = (modal) => {
+  modal.classList.remove('aberto');
+};
 
-fecharLoginBtn.addEventListener('click', () => {
-  loginModal.classList.remove('aberto');
-  loginModal.classList.add('hidden');
-});
+const showLoginModal = () => {
+  dom.loginModal.classList.remove('hidden');
+  openModal(dom.loginModal);
+};
 
-let total = 0;
-const carrinhoItensContainer = document.querySelector('.carrinho-modal__itens');
-const totalValor = document.querySelector('.carrinho-modal__total-valor');
+const hideLoginModal = () => {
+  closeModal(dom.loginModal);
+  dom.loginModal.classList.add('hidden');
+};
 
-function atualizarTotal(valor) {
-  total += valor;
-  totalValor.textContent = `R$ ${total.toFixed(2)}`;
-}
+const parsePreco = (preco) => {
+  const normalized = preco.replace(PRICE_LABEL, '').replace(',', '.');
+  const value = Number.parseFloat(normalized);
+  return Number.isNaN(value) ? 0 : value;
+};
 
-function criarItemHTML(imgSrc, titulo, preco) {
-  return `
-    <div class="carrinho-modal__item">
-      <img src="${imgSrc}" alt="${titulo}" class="carrinho-modal__item__img" />
-      <div class="carrinho-modal__item__detalhes">
-        <h4 class="carrinho-modal__item__titulo">${titulo}</h4>
-        <p class="carrinho-modal__item__preco">${preco}</p>
-        <div class="carrinho-modal__item__quantidade">
-          <button class="carrinho-modal__item__btn remover">Remover</button>
-          <span class="carrinho-modal__item__quantidade-valor">1</span>
-          <button class="carrinho-modal__item__btn adicionar">Adicionar</button>
-        </div>
+const atualizarTotal = (valor) => {
+  state.total += valor;
+  dom.totalValor.textContent = `${PRICE_LABEL} ${state.total.toFixed(2)}`;
+};
+
+const criarItemHTML = (imgSrc, titulo, preco) => `
+  <div class="carrinho-modal__item">
+    <img src="${imgSrc}" alt="${titulo}" class="carrinho-modal__item__img" />
+    <div class="carrinho-modal__item__detalhes">
+      <h4 class="carrinho-modal__item__titulo">${titulo}</h4>
+      <p class="carrinho-modal__item__preco">${preco}</p>
+      <div class="carrinho-modal__item__quantidade">
+        <button class="carrinho-modal__item__btn remover">Remover</button>
+        <span class="carrinho-modal__item__quantidade-valor">1</span>
+        <button class="carrinho-modal__item__btn adicionar">Adicionar</button>
       </div>
     </div>
-  `;
-}
+  </div>
+`;
 
-function adicionarItemAoCarrinho(imgSrc, titulo, preco) {
-  const precoNumber = parseFloat(preco.replace('R$', '').replace(',', '.'));
+const obterItemExistente = (titulo) => {
+  const itens = dom.carrinhoItensContainer.querySelectorAll('.carrinho-modal__item');
+  return [...itens].find(
+    (item) => item.querySelector('.carrinho-modal__item__titulo').textContent === titulo,
+  );
+};
 
-  const itemExistente = [...carrinhoItensContainer.querySelectorAll('.carrinho-modal__item')]
-    .find(item => item.querySelector('.carrinho-modal__item__titulo').textContent === titulo);
+const atualizarQuantidade = (item, delta) => {
+  const quantidadeSpan = item.querySelector('.carrinho-modal__item__quantidade-valor');
+  const quantidadeAtual = Number.parseInt(quantidadeSpan.textContent, 10);
+  const novaQuantidade = quantidadeAtual + delta;
+
+  if (novaQuantidade <= 0) {
+    item.remove();
+    return 0;
+  }
+
+  quantidadeSpan.textContent = novaQuantidade;
+  return novaQuantidade;
+};
+
+const adicionarItemAoCarrinho = (imgSrc, titulo, preco) => {
+  const precoNumber = parsePreco(preco);
+  const itemExistente = obterItemExistente(titulo);
 
   if (itemExistente) {
-    const quantidadeSpan = itemExistente.querySelector('.carrinho-modal__item__quantidade-valor');
-    let quantidadeAtual = parseInt(quantidadeSpan.textContent);
-    quantidadeSpan.textContent = quantidadeAtual + 1;
+    atualizarQuantidade(itemExistente, 1);
     atualizarTotal(precoNumber);
-  } else {
-    const itemHTML = criarItemHTML(imgSrc, titulo, preco);
-    carrinhoItensContainer.insertAdjacentHTML('beforeend', itemHTML);
-    atualizarTotal(precoNumber);
-
-    // Adiciona lógica aos botões dentro do item recém-criado
-    const novoItem = carrinhoItensContainer.lastElementChild;
-    const btnAdicionar = novoItem.querySelector('.adicionar');
-    const btnRemover = novoItem.querySelector('.remover');
-
-    btnAdicionar.addEventListener('click', () => {
-      const quantidadeSpan = novoItem.querySelector('.carrinho-modal__item__quantidade-valor');
-      let quantidadeAtual = parseInt(quantidadeSpan.textContent);
-      quantidadeSpan.textContent = quantidadeAtual + 1;
-      atualizarTotal(precoNumber);
-    });
-
-    btnRemover.addEventListener('click', () => {
-      const quantidadeSpan = novoItem.querySelector('.carrinho-modal__item__quantidade-valor');
-      let quantidadeAtual = parseInt(quantidadeSpan.textContent);
-
-      if (quantidadeAtual > 1) {
-        quantidadeSpan.textContent = quantidadeAtual - 1;
-        atualizarTotal(-precoNumber);
-      } else {
-        // Remove item se quantidade chegar a zero
-        novoItem.remove();
-        atualizarTotal(-precoNumber);
-      }
-    });
+    return;
   }
-}
 
-adicionarAoCarrinhoBtns.forEach((btn) => {
+  dom.carrinhoItensContainer.insertAdjacentHTML(
+    'beforeend',
+    criarItemHTML(imgSrc, titulo, preco),
+  );
+  atualizarTotal(precoNumber);
+};
+
+const mostrarAviso = (mensagem) => {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = mensagem;
+
+  dom.toastContainer.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('show'), TOAST_SHOW_DELAY_MS);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), TOAST_REMOVE_DELAY_MS);
+  }, TOAST_HIDE_DELAY_MS);
+};
+
+dom.abrirCarrinhoBtn.addEventListener('click', () => {
+  openModal(dom.carrinhoModal);
+});
+
+dom.fecharCarrinhoBtn.addEventListener('click', () => {
+  closeModal(dom.carrinhoModal);
+});
+
+dom.finalizarCompraBtn.addEventListener('click', () => {
+  closeModal(dom.carrinhoModal);
+  showLoginModal();
+});
+
+dom.fecharLoginBtn.addEventListener('click', () => {
+  hideLoginModal();
+});
+
+dom.adicionarAoCarrinhoBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.main__produtos__item');
     const img = item.querySelector('.main__produtos__item__img');
     const titulo = item.querySelector('.main__produtos__item__titulo');
     const preco = item.querySelector('.main__produtos__item__preco');
+
     adicionarItemAoCarrinho(img.src, titulo.textContent, preco.textContent);
-    // Aviso visual
     mostrarAviso(`${titulo.textContent} foi adicionado ao carrinho!`);
   });
 });
 
-function mostrarAviso(mensagem) {
-  const container = document.getElementById('toast-container');
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = mensagem;
+dom.carrinhoItensContainer.addEventListener('click', (event) => {
+  const target = event.target;
+  if (!target.classList.contains('carrinho-modal__item__btn')) {
+    return;
+  }
 
-  container.appendChild(toast);
+  const item = target.closest('.carrinho-modal__item');
+  const precoTexto = item.querySelector('.carrinho-modal__item__preco').textContent;
+  const precoNumber = parsePreco(precoTexto);
 
-  // Força animação
-  setTimeout(() => toast.classList.add('show'), 100);
+  if (target.classList.contains('adicionar')) {
+    atualizarQuantidade(item, 1);
+    atualizarTotal(precoNumber);
+    return;
+  }
 
-  // Remove após 3 segundos
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
+  if (target.classList.contains('remover')) {
+    const quantidade = atualizarQuantidade(item, -1);
+    if (quantidade === 0) {
+      atualizarTotal(-precoNumber);
+      return;
+    }
+    atualizarTotal(-precoNumber);
+  }
+});
