@@ -38,13 +38,13 @@ Você pode acessar o projeto diretamente pelo link:
 ```
 PORTIFOLIO-DONA-DOCES/
 ├── index.html .............# Página principal
+|
 ├── Styles/ ................# Arquivos de estilo (CSS)
-│   └── style.css ..........# Estilos e responsividade
+│   
 ├── Scripts/ ...............# Arquivos de lógica (JavaScript)
-│   └── main.js ............# Interatividade do carrinho e funções
+│   
 ├── Assets/ ................# Recursos visuais
-│   ├── imagens/ ...........# Imagens dos produtos e ícones
-│   └── logo.png ...........# Logo do site
+│   
 └── README.md ..............# Documentação do projeto
 ```
 
