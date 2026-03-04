@@ -18,6 +18,8 @@ const TOAST_SHOW_DELAY_MS = 100;
 const TOAST_HIDE_DELAY_MS = 3000;
 const TOAST_REMOVE_DELAY_MS = 300;
 const CART_STORAGE_KEY = 'carrinho';
+const BOTAO_FRAME_TOTAL = 3;
+const BOTAO_FRAME_SELECTOR = '.item__botao__1, .item__botao__2, .item__botao__3';
 const MESSAGES = {
   carrinhoVazio: 'Seu carrinho esta vazio.',
   itemAdicionado: (titulo) => `${titulo} foi adicionado ao carrinho!`,
@@ -120,6 +122,33 @@ const mostrarAviso = (mensagem) => {
   }, TOAST_HIDE_DELAY_MS);
 };
 
+const exibirFrameBotao = (btn, frameAtivo) => {
+  const frames = btn.querySelectorAll(BOTAO_FRAME_SELECTOR);
+
+  if (frames.length === 0) {
+    return;
+  }
+
+  frames.forEach((frame, index) => {
+    frame.style.display = index + 1 === frameAtivo ? 'block' : 'none';
+  });
+};
+
+const alternarFrameBotao = (btn) => {
+  const frameAtual = Number.parseInt(btn.dataset.frameAtual || '1', 10);
+  const proximoFrame = frameAtual === BOTAO_FRAME_TOTAL ? 1 : frameAtual + 1;
+
+  btn.dataset.frameAtual = String(proximoFrame);
+  exibirFrameBotao(btn, proximoFrame);
+};
+
+const inicializarFramesBotoes = () => {
+  dom.adicionarAoCarrinhoBtns.forEach((btn) => {
+    btn.dataset.frameAtual = '1';
+    exibirFrameBotao(btn, 1);
+  });
+};
+
 const obterCarrinho = () => {
   const itens = [...dom.carrinhoItensContainer.querySelectorAll('.carrinho-modal__item')].map(
     (item) => {
@@ -145,6 +174,8 @@ const obterCarrinho = () => {
     total: state.total,
   };
 };
+
+inicializarFramesBotoes();
 
 dom.abrirCarrinhoBtn.addEventListener('click', () => {
   lastFocusedElement = document.activeElement;
@@ -175,6 +206,8 @@ dom.finalizarCompraBtn.addEventListener('click', () => {
 
 dom.adicionarAoCarrinhoBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
+    alternarFrameBotao(btn);
+
     const item = btn.closest('.main__produtos__item');
     const img = item.querySelector('.main__produtos__item__img');
     const titulo = item.querySelector('.main__produtos__item__titulo');
@@ -223,3 +256,4 @@ dom.carrinhoItensContainer.addEventListener('click', (event) => {
     atualizarTotal(-precoNumber);
   }
 });
+
