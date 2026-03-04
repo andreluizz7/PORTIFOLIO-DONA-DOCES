@@ -18,15 +18,53 @@
             </div>
         </header>
 
-        <main>
-            <section class="section__login">
-                <p class="texto">Preencha os campos abaixo para fazer login:</p>
-                <form class="login">
-                    <input class="email" type="email" id="email" placeholder="EMAIL" name="email" required>
+        <main class="main">
+            <section class="main__introducao">
+                <h1 class="main__introducao__titulo">Docinhos Artesanais</h1>
+                <p class="main__introducao__descricao">Deliciosos doces caseiros feitos com muito carinho. Perfeitos para adoçar seu dia!</p>
+                <a class="main__nav__pedidos" href="/pedidos.html">Ver meus pedidos</a>
+            </section>
 
-                    <input class="pass" type="password" id="password" placeholder="**********" name="password" required>
-                </form>
-                <button class="botao" type="submit">Entrar</button>
+            <section class="main__produtos">
+                <article class="main__produtos__item">
+                    <img class="main__produtos__item__img" src="Assets/produto1.jpeg" alt="produto 1">
+                        <div class="main__produtos__item__info">
+                            <h3 class="main__produtos__item__titulo">Doce de Coco</h3>
+                            <p class="main__produtos__item__descricao">Feito com coco fresco e os melhores ingredientes.</p>
+                            <span class="main__produtos__item__preco">R$ 25,00</span>
+                        </div>
+                    <button type="button" class="main__produtos__item__botao" aria-label="Adicionar produto 1 no carinho">Adicionar ao Carrinho</button>
+                </article>
+
+                <article class="main__produtos__item">
+                    <img class="main__produtos__item__img" src="Assets/produto2.jpeg" alt="produto 2">
+                        <div class="main__produtos__item__info">
+                            <h3 class="main__produtos__item__titulo">Doce de Amendoim</h3>
+                            <p class="main__produtos__item__descricao">Feito com amendoim torrado e ingredientes selecionados.</p>
+                            <span class="main__produtos__item__preco">R$ 25,00</span>
+                        </div>
+                    <button type="button" class="main__produtos__item__botao" aria-label="Adicionar produto 2 no carinho">Adicionar ao Carrinho</button>
+                </article>
+
+                <article class="main__produtos__item">
+                    <img class="main__produtos__item__img" src="Assets/produto3.jpeg" alt="produto 3">
+                        <div class="main__produtos__item__info">
+                            <h3 class="main__produtos__item__titulo">Doce de Limão</h3>
+                            <p class="main__produtos__item__descricao">Feito com limões frescos e um toque de açúcar.</p>
+                            <span class="main__produtos__item__preco">R$ 25,00</span>
+                        </div>
+                    <button type="button" class="main__produtos__item__botao" aria-label="Adicionar produto 3 no carinho">Adicionar ao Carrinho</button>
+                </article>
+
+                <article class="main__produtos__item">
+                    <img class="main__produtos__item__img" src="Assets/produto4.jpeg" alt="produto 4">
+                        <div class="main__produtos__item__info">
+                            <h3 class="main__produtos__item__titulo">Doce Ferradura</h3>
+                            <p class="main__produtos__item__descricao">Feito com ingredientes especiais e um toque de chocolate.</p>
+                            <span class="main__produtos__item__preco">R$ 30,00</span>
+                        </div>
+                    <button type="button" class="main__produtos__item__botao" aria-label="Adicionar produto 4 no carinho">Adicionar ao Carrinho</button>
+                </article>
             </section>
         </main>
 
