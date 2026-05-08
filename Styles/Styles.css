@@ -252,6 +252,7 @@ body {
     margin: 1rem;
     padding: 2rem;
     border-radius: 1rem;
+    border: 3px solid var(--color-border);
     background-color: var(--color-secondary);
 }
 
@@ -283,7 +284,7 @@ body {
     padding: 1rem;
     border-radius: 1rem;
     background-color: var(--color-background);
-    border: 1.5px solid var(--color-border);
+    border: 2px solid var(--color-border);
 }
 
 .pedidos__item__img {
