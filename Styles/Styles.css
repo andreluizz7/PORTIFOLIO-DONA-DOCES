@@ -23,6 +23,9 @@ body {
     background-color: var(--color-background);
     font-family: var(--font-style);
 }
+    body.modal-aberto {
+        overflow: hidden;
+    }
 
 .header {
     position: relative;
@@ -137,8 +140,10 @@ body {
 .main__produtos {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 2rem;
     text-align: center;
     padding: 5rem;
     border-style: solid;
@@ -154,7 +159,9 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem 4rem;
+    width: calc((100% - 4rem) / 3);
+    max-width: 24rem;
+    padding: 2rem;
     border-style: solid;
     border-radius: 1rem;
     background-color: var(--color-background);
@@ -180,7 +187,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .main__produtos__item__titulo {
@@ -196,7 +203,7 @@ body {
 .main__produtos__item__preco {
     font-size: 1.7rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     transition: transform 0.3s ease;
 }
 
@@ -204,20 +211,114 @@ body {
     transform: scale(1.1);
 }
 
-.main__produtos__item__botao { 
-    padding: 1rem 1.6rem;
-    font-size: 1rem;
+.produto__item__add {
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #ffffff;
-    background-color: var(--color-button);
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-family: var(--font-style);
+    color: var(--color-text);
+    margin-bottom: 1rem;
 }
 
-.main__produtos__item__botao:hover {
-    background-color: var(--button-hover);
+.main__produtos__item__botao { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    background-color: unset;
+    padding: 0;
+}
+
+.item__botao__frame {
+    width: 10rem;
+    height: 6rem;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.item__botao__1 {
+    display: block;
+}
+
+.item__botao__2 {
+    display: none;
+}
+
+.item__botao__3 {
+    display: none;
+}
+
+.pedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--color-secondary);
+    border: 1px solid var(--color-border);
+}
+
+.pedidos__titulo {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--color-title);
+    text-align: center;
+}
+
+.pedidos__vazio {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: center;
+    display: none;
+}
+
+.pedidos__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pedidos__item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+}
+
+.pedidos__item__img {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 0.8rem;
+}
+
+.pedidos__item__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pedidos__item__titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-title);
+}
+
+.pedidos__item__quantidade,
+.pedidos__item__total {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.pedidos__total {
+    align-self: flex-end;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--color-text);
 }
 
 .footer {
@@ -384,104 +485,6 @@ body {
     background-color: var(--button-hover);
 }
 
-.login-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    max-width: 50rem;
-    height: 100%;
-    background-color: var(--color-secondary);
-    z-index: 1000;
-    transform: translateX(100%); 
-    opacity: 0;
-    transition: transform 0.6s ease, opacity 0.4s ease;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    border-radius: 1rem 0 0 1rem;
-}
-
-.login-modal.aberto {
-    transform: translateX(0); 
-    opacity: 1;
-}
-
-.login-modal__fechar {
-    position: absolute;
-    width: 3rem;
-    height: 3rem;
-    top: 1rem;
-    right: 1rem;
-    background-color: transparent;
-    border: none;
-    font-size: 2.5rem;
-    cursor: pointer;
-}
-
-.login-modal__fechar:hover {
-    background-color: #ec547780;
-    border-radius: 1rem;
-}
-
-.login-modal__conteudo {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 2rem;
-}
-
-.login-modal__titulo {
-    font-size: 2rem;
-    color: var(--color-title);
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.login-modal__formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.login-modal__formulario label {
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.login-modal__formulario input {
-    padding: 1rem;
-    font-size: 1.5rem;
-    background-color: var(--color-background);
-    border: 2px solid var(--color-black);
-    border-radius: 0.5rem;
-}
-
-#tipo-pagamento {
-    padding: 1rem;
-    font-size: 1.5rem;
-    background-color: var(--color-background);
-    border: 2px solid var(--color-black);
-    border-radius: 0.5rem;
-    text-align: center;
-    margin: 0 0 1rem 0;
-}
-
-.login-modal__formulario button {
-    margin-top: auto;
-    align-self: flex-end;
-    padding: 1rem;
-    height: auto;
-    width: 100%;
-    font-size: 1.4rem;
-    font-family: var(--font-style);
-    font-weight: bold;
-    color: #ffffff;
-    background-color: var(--color-button);
-    border: 2px solid var(--color-black);
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
 
 #toast-container {
     display: flex;
@@ -531,11 +534,11 @@ body {
     }
 
     .main__introducao__titulo {
-        font-size: 1.1;
+        font-size: 1.1rem;
     }
 
     .main__introducao__descricao {
-        font-size: 1.1;
+        font-size: 1.1rem;
     }
 
     .main__produtos {
@@ -545,12 +548,47 @@ body {
     }
 
     .main__produtos__item {
-        width: 100%;
+        width: 20rem;
         padding: 1.5rem 2rem;
     }
 
-    .main__produtos__item button {
-        padding: 1rem 1.6rem;
+    .main__produtos__item__img {
+        width: 13rem;
+        height: 16rem;
+        padding: 0.5rem;
+    }
+
+    .main__produtos__item__botao {
+        padding: 0;
+    }
+
+    .item__botao__1 {
+        width: 8rem;
+        height: 5rem;
+    }
+
+    .item__botao__2 {
+        width: 8rem;
+        height: 5rem;
+    }
+
+    .item__botao__3 {
+        width: 8rem;
+        height: 5rem;
+    }
+
+    .pedidos {
+        padding: 1.5rem;
+    }
+
+    .pedidos__item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pedidos__item__img {
+        width: 10rem;
+        height: 10rem;
     }
 
     .carrinho-modal {
@@ -568,50 +606,90 @@ body {
     } 
 
     .carrinho-modal__item__img {
-    width: 8rem;
-    height: 8rem;
+        width: 8rem;
+        height: 8rem;
     }
 
     .carrinho-modal__item__detalhes {
-    flex-direction: column;
-    font-size: 1.4rem;
-    padding: 1rem;
+        flex-direction: column;
+        font-size: 1.4rem;
+        padding: 1rem;
     }
 
     .carrinho-modal__item__quantidade {
-    flex-direction: row;
+        flex-direction: row;
     }
 
     .carrinho-modal__total {
-    font-size: 1.7rem;
+        font-size: 1.7rem;
     }
 
     .carrinho-modal__finalizar {
-    font-size: 1.4rem;
-    padding: 0.8rem;
+        font-size: 1.4rem;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 1.5rem;
+        margin: 0.8rem;
     }
 
-    .login-modal__titulo {
-    font-size: 1.8rem;
+    .header__nav__logo__img {
+        width: 11rem;
     }
 
-    .login-modal__formulario label {
-    font-size: 1.3rem;
+    .header__nav__carrinho__img {
+        width: 3rem;
     }
 
-    .login-modal__formulario input {
-    padding: 1rem;
-    font-size: 1.3rem;
+    .main__introducao {
+        padding: 1.5rem;
     }
 
-    #tipo-pagamento {
-    padding: 1rem;
-    font-size: 1.3rem;
+    .main__introducao__titulo {
+        font-size: 1.6rem;
     }
 
-    .login-modal__formulario button {
-    font-size: 1.2rem;
-    padding: 0.8rem;
+    .main__introducao__descricao {
+        font-size: 1rem;
+    }
+
+    .main__produtos {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .main__produtos__item {
+        padding: 1.2rem 1.5rem;
+    }
+
+    .main__produtos__item__img {
+        width: 12rem;
+        height: 16rem;
+    }
+
+    .carrinho-modal__conteudo {
+        padding: 1rem;
+    }
+
+    .carrinho-modal__item__img {
+        width: 7rem;
+        height: 8rem;
+    }
+
+    .carrinho-modal__item__detalhes {
+        font-size: 1.3rem;
+    }
+
+    .pedidos {
+        padding: 1.2rem;
+    }
+
+    .pedidos__item__img {
+        width: 9rem;
+        height: 9rem;
     }
 }
 
@@ -633,18 +711,25 @@ body {
     }
 
     .main__produtos {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 2rem;
     }
 
     .main__produtos__item {
-        width: 100%;
-        padding: 2rem 6rem;
+        width: calc((100% - 1.5rem) / 2);
+        max-width: 24rem;
+        padding: 1.5rem;
     }
 
     .main__produtos__item__img {
-        width: 23rem;
-        height: 30rem;
+        width: 100%;
+        max-width: 15rem;
+        height: 20rem;
+        padding: 0.5rem;
+        border-radius: 2rem
     }
     
     .main__produtos__item__titulo {
@@ -659,8 +744,20 @@ body {
         font-size: 2rem;
     }
 
-    .main__produtos__item button {
-        padding: 1.2rem 2rem;
+    .main__produtos__item__botao {
+        padding: 0;
+    }
+
+    .pedidos__item {
+        padding: 1.5rem;
+    }
+
+    .pedidos__item__titulo {
+        font-size: 1.7rem;
+    }
+
+    .pedidos__item__quantidade,
+    .pedidos__item__total {
         font-size: 1.2rem;
     }
 
@@ -687,26 +784,4 @@ body {
         padding: 1rem;
     }
 
-    .login-modal__titulo {
-        font-size: 2rem;
-    }
-
-    .login-modal__formulario label {
-        font-size: 1.5rem;
-    }
-
-    .login-modal__formulario input {
-        padding: 1rem;
-        font-size: 1.5rem;
-    }
-
-    #tipo-pagamento {
-        padding: 1rem;
-        font-size: 1.5rem;
-    }
-
-    .login-modal__formulario button {
-        font-size: 1.3rem;
-        padding: 1rem;
-    }
 }
