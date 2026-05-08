@@ -5,17 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DONA DOCES</title>
         <link rel="stylesheet" href="Styles/Styles.css">
-        <link rel="stylesheet" href="Styles/login.css">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
         </style>
-</head>
+    </head>
     <body>
-        <header class="header__login">
-            <div class="header__info">
-                <h1 class="titulo">Bem-vindo à Dona Doces!</h1>
-                <p class="texto">Faça login para acessar sua conta e desfrutar dos nossos deliciosos doces.</p>
-            </div>
+
+        <header class="header">
+            <nav class="header__nav">
+                <a class="header__nav__logo" href="index.html">
+                    <img class="header__nav__logo__img" src="Assets/logo.jpg" alt="Logo Dona Doces">
+                </a>
+
+                <button class="header__nav__carrinho" id="abrir-carrinho-btn" aria-label="Ver carrinho de compras">
+                    <img class="header__nav__carrinho__img" src="Assets/carrinho.png" alt="Ícone do carrinho de compras">
+                </button>
+            </nav>
         </header>
 
         <main class="main">
@@ -88,10 +93,27 @@
             </section>
         </main>
 
-        <footer class="footer__login">
-            <p class="footer__texto__login">© 2026 Dona Doces. Todos os direitos reservados.</p>
-            <p class="footer__autor__login">Feito com ☕ e ❤️ por André L Blazius</p>
+        <footer class="footer">
+            <p class="footer__texto">© 2026 Dona Doces. Todos os direitos reservados.</p>
+            <p class="footer__autor">Feito com ☕ e ❤️ por André L Blazius</p>
         </footer>
 
+        <div class="carrinho-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="carrinho-titulo">
+            <div class="carrinho-modal__conteudo">
+                <button class="carrinho-modal__fechar" id="fechar-carrinho-btn" aria-label="Fechar carrinho de compras">&times;</button>
+            <h2 class="carrinho-modal__titulo" id="carrinho-titulo">Seu Carrinho</h2>
+                <div class="carrinho-modal__itens">
+                    <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+                </div>
+                <div class="carrinho-modal__total">
+                    <span>Total:</span>
+                    <span class="carrinho-modal__total-valor">R$ 0,00</span>
+                </div>
+                <button class="carrinho-modal__finalizar" id="finalizar-compra-btn" aria-label="Finalizar compra">Finalizar Compra</button>
+            </div>
+        </div>
+
+        <div id="toast-container"></div>
+        <script src="Scripts/main.js"></script>
     </body>
 </html>
